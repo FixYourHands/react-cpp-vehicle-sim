@@ -1,0 +1,5 @@
+# ninja log v6
+6	124	7967098516581518	build.ninja	fb262de9f3a60b8b
+6	124	7967098516556510	F:/Programming/Projects/react-cpp-vehicle-sim/core_engine/out/build/x64-Debug/cmake_install.cmake	fb262de9f3a60b8b
+23	642	7967094556379879	CMakeFiles/CivicEngine.dir/src/main.cpp.obj	3dbbaf0cc5549837
+642	1058	7967094562578088	CivicEngine.exe	b6a5e3b481f5481
