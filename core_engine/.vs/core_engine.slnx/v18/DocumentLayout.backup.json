@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "F:\\Programming\\Projects\\react-cpp-vehicle-sim\\core_engine\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\Programming\\Projects\\react-cpp-vehicle-sim\\core_engine\\src\\Transmission.cpp||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\Transmission.cpp||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\Programming\\Projects\\react-cpp-vehicle-sim\\core_engine\\include\\Transmission.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:include\\Transmission.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\Programming\\Projects\\react-cpp-vehicle-sim\\core_engine\\CMakeLists.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CMakeLists.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
@@ -22,25 +30,50 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Transmission.cpp",
+              "DocumentMoniker": "F:\\Programming\\Projects\\react-cpp-vehicle-sim\\core_engine\\src\\Transmission.cpp",
+              "RelativeDocumentMoniker": "src\\Transmission.cpp",
+              "ToolTip": "F:\\Programming\\Projects\\react-cpp-vehicle-sim\\core_engine\\src\\Transmission.cpp",
+              "RelativeToolTip": "src\\Transmission.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-04T23:51:43.404Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Transmission.h",
+              "DocumentMoniker": "F:\\Programming\\Projects\\react-cpp-vehicle-sim\\core_engine\\include\\Transmission.h",
+              "RelativeDocumentMoniker": "include\\Transmission.h",
+              "ToolTip": "F:\\Programming\\Projects\\react-cpp-vehicle-sim\\core_engine\\include\\Transmission.h",
+              "RelativeToolTip": "include\\Transmission.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-04T23:34:29.271Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "CMakeLists.txt",
               "DocumentMoniker": "F:\\Programming\\Projects\\react-cpp-vehicle-sim\\core_engine\\CMakeLists.txt",
               "RelativeDocumentMoniker": "CMakeLists.txt",
               "ToolTip": "F:\\Programming\\Projects\\react-cpp-vehicle-sim\\core_engine\\CMakeLists.txt",
               "RelativeToolTip": "CMakeLists.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
               "WhenOpened": "2026-04-01T01:17:15.045Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "CMake Overview Pages",
               "DocumentMoniker": "CMake Overview Pages",
               "ToolTip": "CMake Overview Pages",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-04-01T01:02:51.178Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-01T01:02:51.178Z"
             }
           ]
         }
