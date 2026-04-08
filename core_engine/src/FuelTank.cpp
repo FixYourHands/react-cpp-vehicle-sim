@@ -44,3 +44,15 @@ bool FuelTank::isEmpty() const {
 bool FuelTank::isLow() const {
 	return m_isLow;
 }
+
+EMSCRIPTEN_BINDINGS(fuel_tank_module) {
+	emscripten::class_<FuelTank>("FuelTank")
+		.constructor<int>()
+		.function("refuel", &FuelTank::refuel)
+		.function("consume",&FuelTank::consume)
+		.function("getCurrentLevel", &FuelTank::getCurrentLevel)
+		.function("getCapacity", &FuelTank::getCapacity)
+		.function("getCurrentPercentage", &FuelTank::getCurrentPercentage)
+		.function("isEmpty", &FuelTank::isEmpty)
+		.function("isLow", &FuelTank::isLow);
+}

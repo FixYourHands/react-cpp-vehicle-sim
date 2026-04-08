@@ -1,5 +1,6 @@
 #include "Transmission.h"
 #include <iostream>
+#include <emscripten/bind.h>
 
 Transmission::Transmission()
 	: m_currentGear(Gear::Neutral) {
@@ -29,4 +30,13 @@ void Transmission::downshift() {
 	else {
 		std::cout << "Already in neutral gear!" << std::endl;
 	}
+}
+
+EMSCRIPTEN_BINDINGS(transmission_module) {
+	emscripten::class_<Transmission>("Transmission")
+		.constructor<>()
+		.function("getCurrentGear", &Transmission::getCurrentGear)
+		.function("getCurrentGearRatio", &Transmission::getCurrentGearRatio)
+		.function("upshift", &Transmission::upshift)
+		.function("downshift", &Transmission::downshift);
 }
