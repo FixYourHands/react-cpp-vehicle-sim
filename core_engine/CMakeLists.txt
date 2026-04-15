@@ -7,8 +7,10 @@ set(SOURCES
 	src/main.cpp
 	src/Transmission.cpp
 	src/FuelTank.cpp
-	)
+	src/Wheel.cpp
+	src/Speedometer.cpp
+	src/Tachometer.cpp)
 
-add_executable(CivicEngine ${SOURCES} "include/Transmission.h" "include/FuelTank.h")
+add_executable(CivicEngine ${SOURCES} "include/Transmission.h" "include/FuelTank.h" "include/Engine.h" "include/Wheel.h" "include/Speedometer.h" "include/Tachometer.h")
 
 target_include_directories(CivicEngine PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
