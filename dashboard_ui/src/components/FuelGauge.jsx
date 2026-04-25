@@ -1,6 +1,6 @@
-function FuelGauge({size,fuelLevel}){
-    const totalLength = 70
-    const offset = totalLength - (fuelLevel/100) * totalLength;
+function FuelGauge({size,fuelLevel,capacity,isLow}){
+    const totalLength = 65
+    const offset = totalLength - (fuelLevel/capacity) * totalLength;
 
     return (
     <svg width={size} height={size} viewBox = "0 0 100 100">
@@ -20,15 +20,16 @@ function FuelGauge({size,fuelLevel}){
         </defs>
 
         {/*background*/}
+        <g transform="translate(100 0) scale (-1 1) rotate(-90 50 50)">
         <path 
-            d="M 20 80 A 40 40 0 0 1 80 80" fill="none" stroke="#222" 
+            d="M 20 80 A 40 30 0 0 1 80 80" fill="none" stroke="#222" 
             strokeWidth={8}
             strokeLinecap="round"
             />
 
         {/*active fuel level*/}
         <path 
-            d ="M 20 80 A 40 40 0 0 1 80 80" fill="none" stroke={fuelLevel < 15 ? "#ff4d4d" : "#00d4ff"}
+            d ="M 20 80 A 40 30 0 0 1 80 80" fill="none" stroke={isLow ? "#ff4d4d" : "#00d4ff"}
             strokeWidth={7}
             strokeDasharray={totalLength}
             strokeDashoffset={offset}
@@ -39,11 +40,11 @@ function FuelGauge({size,fuelLevel}){
 
         {/*segment mask */}
         <path
-            d="M 20 80 A 40 40 0 0 1 80 80" fill="none" stroke="#111"
+            d="M 20 80 A 40 30 0 0 1 80 80" fill="none" stroke="#111"
             strokeWidth={7}
             strokeDasharray="1, 4"
         />
-        
+        </g>
     </svg>
     );
 }
