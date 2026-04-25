@@ -1,0 +1,19 @@
+.dashboard-container{
+    background-color: #4b4545;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.controls {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.slider {
+    width: 200px;
+    cursor: pointer;
+}

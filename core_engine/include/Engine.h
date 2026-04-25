@@ -4,8 +4,7 @@
 
 class Engine
 {
-private:
-	Transmission m_transmission;
-	FuelTank m_fuelTank;
+	public:
+	void update(float throttleInput, float deltaTime, FuelTank& fuelTank, Transmission& transmission);
 
 };

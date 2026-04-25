@@ -11,6 +11,6 @@ set(SOURCES
 	src/Speedometer.cpp
 	src/Tachometer.cpp)
 
-add_executable(CivicEngine ${SOURCES} "include/Transmission.h" "include/FuelTank.h" "include/Engine.h" "include/Wheel.h" "include/Speedometer.h" "include/Tachometer.h")
+add_executable(CivicEngine ${SOURCES} "include/Transmission.h" "include/FuelTank.h" "include/Engine.h" "include/Wheel.h" "include/Speedometer.h" "include/Tachometer.h" "include/Car.h")
 
 target_include_directories(CivicEngine PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)

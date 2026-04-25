@@ -1,18 +1,28 @@
 import Speedometer from "./components/Speedometer";
-import {Container, Row, Col} from "react-bootstrap";
+import FuelGauge from "./components/FuelGauge";
+import React, {useState} from 'react';
+import './App.css';
 
 function App() {
-    const speed = 120; // Example speed value
+    const [level, setFuel] = useState(75);
+    const [fuelGaugeSize, setFuelGaugeSize] = useState(350)
+    const [speed, setSpeed] = useState(0)
 
     return (
-      <Container className="mt-5">
-        <Row>
-          <Col xs="auto">
-            <Speedometer speed={speed} />
-          </Col>
-          {/* Add more components here as needed */}
-        </Row>
-      </Container>
+      <div className="dashboard-container">
+        <FuelGauge size={fuelGaugeSize} fuelLevel={level}/>
+        <div className="controls">
+          <p>Fuel Level: {level}%</p>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={level}
+            onChange={(e) => setFuel(Number(e.target.value))}
+            className="slider"
+            />
+        </div>
+      </div>
     );
 }
 
