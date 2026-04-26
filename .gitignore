@@ -30,3 +30,8 @@ out/
 #vscode
 .vscode/
 **/build/
+**/build_wasm/
+
+#wasm compiler files
+dashboard_ui/src/wasm/CivicEngine.js
+dashboard_ui/src/wasm/CivicEngine.wasm

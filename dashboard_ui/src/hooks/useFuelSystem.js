@@ -20,10 +20,10 @@ export function useFuelSystem(Module, capacity) {
         setIsFuelLow(fuelTankRef.current.isLow());
     }
 
-    const updateSlider = (e) => {
+    const updateFuel= (newValue) => {
         if (!fuelTankRef.current)
             return;
-      const newValue = Number(e.target.value);
+      const currentLevel = fuelTankRef.current.getCurrentLevel();
       const diff = newValue - level;
 
       if (diff > 0){
@@ -36,5 +36,5 @@ export function useFuelSystem(Module, capacity) {
       syncState();
     }
 
-    return {level, fuelPercentage, isLowFuel, updateSlider}
+    return {level, fuelPercentage, isLowFuel, updateFuel}
 }

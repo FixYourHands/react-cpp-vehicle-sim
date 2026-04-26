@@ -1,0 +1,1 @@
+& {cd build_wasm; emmake make install; cd ..}

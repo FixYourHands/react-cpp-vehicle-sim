@@ -14,3 +14,16 @@ set(SOURCES
 add_executable(CivicEngine ${SOURCES} "include/Transmission.h" "include/FuelTank.h" "include/Engine.h" "include/Wheel.h" "include/Speedometer.h" "include/Tachometer.h" "include/Car.h")
 
 target_include_directories(CivicEngine PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+if(EMSCRIPTEN)
+	target_link_options(CivicEngine PRIVATE
+		"--bind"
+		"-sMODULARIZE=1"
+		"-sEXPORT_ES6=1"
+		"-sALLOW_MEMORY_GROWTH=1"
+		)
+		set_target_properties(CivicEngine PROPERTIES SUFFIX ".js")
+endif()
+
+install(TARGETS CivicEngine DESTINATION "${CMAKE_SOURCE_DIR}/../dashboard_ui/src/wasm")
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/CivicEngine.wasm" DESTINATION "${CMAKE_SOURCE_DIR}/../dashboard_ui/src/wasm")

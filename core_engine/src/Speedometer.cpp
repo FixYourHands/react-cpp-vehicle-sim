@@ -9,6 +9,7 @@ Speedometer::Speedometer(float tireDiameterInInches)
 float Speedometer::calculateMPH(float wheelAngularVelocity) const
 {
     // Convert tire diameter from inches to meters
+    constexpr float INCH_TO_METER{.0254};
     float radiusInMeters = (m_tireDiameterInInches * INCH_TO_METER) / 2.0f;
 
     // Calculate the linear velocity in meters per second
