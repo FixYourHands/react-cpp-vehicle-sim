@@ -1,0 +1,20 @@
+.gauge-path.normal {
+    stroke: #00d4ff;
+    filter: url(#glow);
+}
+
+.gauge-path.low {
+    stroke: #ff4d4d;
+    filter: url(#glow);
+    animation: lowFuel 1s infinite;
+}
+
+.segment-mask {
+    stroke: #111
+}
+
+@keyframes lowFuel{
+    0% {opacity: 1;}
+    50% {opacity: .4;}
+    100% {opacity: 1;}
+}

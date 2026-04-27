@@ -1,4 +1,6 @@
-function FuelGauge({size,fuelLevel,capacity,isLow}){
+import './FuelGauge.css';
+
+function FuelGaugeDisplay({size,fuelLevel,capacity,isLow}){
     const totalLength = 65
     const offset = totalLength - (fuelLevel/capacity) * totalLength;
 
@@ -29,18 +31,17 @@ function FuelGauge({size,fuelLevel,capacity,isLow}){
 
         {/*active fuel level*/}
         <path 
-            d ="M 20 80 A 40 30 0 0 1 80 80" fill="none" stroke={isLow ? "#ff4d4d" : "#00d4ff"}
+            d ="M 20 80 A 40 30 0 0 1 80 80" fill="none" className={isLow ? "gauge-path low" : "gauge-path normal"}
             strokeWidth={7}
             strokeDasharray={totalLength}
             strokeDashoffset={offset}
             strokeLinecap="round"
-            filter="url(#glow)"
             style={{transition: 'stroke-dashoffset 0.5s ease-out, stroke 0.3s'}}
         />
 
         {/*segment mask */}
         <path
-            d="M 20 80 A 40 30 0 0 1 80 80" fill="none" stroke="#111"
+            d="M 20 80 A 40 30 0 0 1 80 80" fill="none" className={"segment-mask"}
             strokeWidth={7}
             strokeDasharray="1, 4"
         />
@@ -49,4 +50,4 @@ function FuelGauge({size,fuelLevel,capacity,isLow}){
     );
 }
 
-export default FuelGauge;
+export default FuelGaugeDisplay;
