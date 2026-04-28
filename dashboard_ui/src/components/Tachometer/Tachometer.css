@@ -1,0 +1,39 @@
+.outer-ring-white {
+    fill: none;
+    stroke: #EBF5F4;
+    stroke-width: 3;
+}
+
+.outer-ring-red {
+    fill: none;
+    stroke: #D85D4D;
+    stroke-width: 9;
+}
+
+.middle-ring-red {
+    fill: none;
+    stroke: #462E29;
+    stroke-width: 8;
+}
+
+.inner-ring-red {
+    fill: none;
+    stroke: #c7211e;
+    stroke-width: 5;
+}
+
+.outer-ring-dark-red {
+    fill: none;
+    stroke: #27181D;
+    stroke-width: 45;
+}
+
+.rpm-numbers {
+    fill: #FBFCF9;
+    text-anchor: middle;       
+    dominant-baseline: middle; 
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif; 
+    pointer-events: none;     
+}
