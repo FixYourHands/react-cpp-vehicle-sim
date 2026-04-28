@@ -1,10 +1,12 @@
 import "./Tachometer.css";
 
 function TachometerDisplay({ rpm }) {
-
-    const radius = 212;
-    const circumference = Math.PI * radius;
-    const dashOffset = circumference - (100/8050) * circumference;
+  const radius = 214;
+  const circumference = Math.PI * radius;
+  const dashOffset = circumference - ((1000 +50)/ 8000) * circumference ;
+  const needleAngleDegrees = 180 - (5000) * (180 / 8000);
+  const centerX = 230;
+  const centerY = 295;
   return (
     <svg width="550" height="450" viewBox="0 0 500 400">
       <defs>
@@ -48,8 +50,7 @@ function TachometerDisplay({ rpm }) {
           const angleInDegrees = 180 - i * (180 / 32);
           const angleInRadians = (angleInDegrees * Math.PI) / 180;
 
-          const centerX = 230;
-          const centerY = 295;
+          
 
           // Define different lengths for the tics
           let tickLength = 5; // Default Small Tic
@@ -99,7 +100,7 @@ function TachometerDisplay({ rpm }) {
       </g>
       {/* The MOVING RPM BAR */}
       <path
-        d="M 15 300 A 210 210 0 0 1 445 300"
+        d="M 18 300 A 212 212 0 0 1 442 300"
         fill="none"
         opacity={1}
         stroke="red"
@@ -108,6 +109,16 @@ function TachometerDisplay({ rpm }) {
         strokeDashoffset={dashOffset}
         style={{ transition: "stroke-dashoffset 0.1s ease-out" }}
       />
+
+      <g transform={`rotate(${-needleAngleDegrees}, ${centerX}, ${centerY})`}>
+        <path
+          d={`M ${centerX + 160} ${centerY - 2} 
+              L ${centerX + 210} ${centerY} 
+              L ${centerX + 160} ${centerY + 2} Z`}
+          fill="white"
+          className="needle"
+        />
+      </g>
     </svg>
   );
 }

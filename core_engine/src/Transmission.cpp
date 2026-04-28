@@ -14,7 +14,7 @@ float Transmission::getCurrentGearRatio() const {
 	return m_gearRatios[static_cast<int>(m_currentGear)];
 }
 
-void Transmission::upshift() {
+void Transmission::upShift() {
 	if (m_currentGear != Gear::Sixth) {
 		m_currentGear = static_cast<Gear>(static_cast<int>(m_currentGear) + 1);
 	}
@@ -23,13 +23,17 @@ void Transmission::upshift() {
 	}
 }
 
-void Transmission::downshift() {
-	if (m_currentGear != Gear::Neutral) {
+void Transmission::downShift() {
+	if (m_currentGear != Gear::First) {
 		m_currentGear = static_cast<Gear>(static_cast<int>(m_currentGear) - 1);
 	}
 	else {
-		std::cout << "Already in neutral gear!" << std::endl;
+		std::cout << "Already in first gear!" << std::endl;
 	}
+}
+
+void Transmission::neutralShift() {
+	m_currentGear = Gear::Neutral;
 }
 
 EMSCRIPTEN_BINDINGS(transmission_module) {
@@ -37,6 +41,7 @@ EMSCRIPTEN_BINDINGS(transmission_module) {
 		.constructor<>()
 		.function("getCurrentGear", &Transmission::getCurrentGear)
 		.function("getCurrentGearRatio", &Transmission::getCurrentGearRatio)
-		.function("upshift", &Transmission::upshift)
-		.function("downshift", &Transmission::downshift);
+		.function("upShift", &Transmission::upShift)
+		.function("downShift", &Transmission::downShift)
+		.function("neutralShift", &Transmission::neutralShift);
 }

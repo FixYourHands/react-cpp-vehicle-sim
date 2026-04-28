@@ -22,3 +22,10 @@ void Tachometer::update(float engineRPM, float deltaTime) {
 float Tachometer::getDisplayedRPM() const {
     return m_displayedRPM;
 }
+
+EMSCRIPTEN_BINDINGS(tachometer_module) {
+    emscripten::class_<Tachometer>("Tachometer")
+        .constructor<float>()
+        .function("update", &Tachometer::update)
+        .function("getDisplayedRPM", &Tachometer::getDisplayedRPM);
+}

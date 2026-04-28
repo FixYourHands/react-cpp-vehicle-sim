@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
+if(POLICY CMP0177)
+	cmake_policy(SET CMP0177 NEW)
+endif()
 project(CivicEngine)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -9,7 +12,9 @@ set(SOURCES
 	src/FuelTank.cpp
 	src/Wheel.cpp
 	src/Speedometer.cpp
-	src/Tachometer.cpp)
+	src/Tachometer.cpp
+	src/Car.cpp
+	src/Engine.cpp)
 
 add_executable(CivicEngine ${SOURCES} "include/Transmission.h" "include/FuelTank.h" "include/Engine.h" "include/Wheel.h" "include/Speedometer.h" "include/Tachometer.h" "include/Car.h")
 

@@ -16,4 +16,5 @@ private:
     Transmission m_transmission;
     FuelTank m_fuelTank;
 public:
-}
+    void update(float throttle, float deltaTime);
+};

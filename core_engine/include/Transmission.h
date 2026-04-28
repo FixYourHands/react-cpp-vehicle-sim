@@ -29,7 +29,8 @@ public:
 	Transmission();
 	int getCurrentGear() const;
 	float getCurrentGearRatio() const;
-	void upshift();
-	void downshift();
-	
+	void upShift();
+	void downShift();
+	void neutralShift();
+	//bool canShift() const;
 };
