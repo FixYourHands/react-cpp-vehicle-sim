@@ -1,6 +1,8 @@
 #include "Transmission.h"
 #include <iostream>
+#ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
+#endif
 
 Transmission::Transmission()
 	: m_currentGear(Gear::Neutral) {
@@ -36,6 +38,7 @@ void Transmission::neutralShift() {
 	m_currentGear = Gear::Neutral;
 }
 
+#ifdef __EMSCRIPTEN__
 EMSCRIPTEN_BINDINGS(transmission_module) {
 	emscripten::class_<Transmission>("Transmission")
 		.constructor<>()
@@ -45,3 +48,4 @@ EMSCRIPTEN_BINDINGS(transmission_module) {
 		.function("downShift", &Transmission::downShift)
 		.function("neutralShift", &Transmission::neutralShift);
 }
+#endif

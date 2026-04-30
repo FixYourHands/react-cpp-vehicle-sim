@@ -1,5 +1,7 @@
 #include "Tachometer.h"
+#ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
+#endif
 
 Tachometer::Tachometer(float smoothingFactor)
     : m_displayedRPM(0.0f), m_smoothingFactor(smoothingFactor) {
@@ -23,9 +25,11 @@ float Tachometer::getDisplayedRPM() const {
     return m_displayedRPM;
 }
 
+#ifdef __EMSCRIPTEN__
 EMSCRIPTEN_BINDINGS(tachometer_module) {
     emscripten::class_<Tachometer>("Tachometer")
         .constructor<float>()
         .function("update", &Tachometer::update)
         .function("getDisplayedRPM", &Tachometer::getDisplayedRPM);
 }
+#endif

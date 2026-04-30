@@ -1,5 +1,7 @@
 #include "Speedometer.h"
+#ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
+#endif
 
 Speedometer::Speedometer(float tireDiameterInInches)
     : m_tireDiameterInInches(tireDiameterInInches)
@@ -9,7 +11,7 @@ Speedometer::Speedometer(float tireDiameterInInches)
 float Speedometer::calculateMPH(float wheelAngularVelocity) const
 {
     // Convert tire diameter from inches to meters
-    constexpr float INCH_TO_METER{.0254};
+    constexpr float INCH_TO_METER{.0254f};
     float radiusInMeters = (m_tireDiameterInInches * INCH_TO_METER) / 2.0f;
 
     // Calculate the linear velocity in meters per second
@@ -21,8 +23,10 @@ float Speedometer::calculateMPH(float wheelAngularVelocity) const
     return mph;
 }
 
+#ifdef __EMSCRIPTEN__
 EMSCRIPTEN_BINDINGS(speedometer_module) {
     emscripten::class_<Speedometer>("Speedometer")
         .constructor<float>()
         .function("getSpeed", &Speedometer::calculateMPH);
 }
+#endif

@@ -1,6 +1,8 @@
 #include "Engine.h"
 #include <algorithm>
+#ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
+#endif
 
 Engine::Engine(float maxTorque)
     :
@@ -42,7 +44,8 @@ float Engine::getOutputTorque() const{
 float Engine::getRPM() const{
     return m_currentRPM;
 }
-
+    
+#ifdef __EMSCRIPTEN__
 EMSCRIPTEN_BINDINGS(engine_module) {
     emscripten::class_<Engine>("Engine")
         .constructor<float>()
@@ -50,3 +53,4 @@ EMSCRIPTEN_BINDINGS(engine_module) {
         .function("getOutputTorque", &Engine::getOutputTorque)
         .function("getRPM",&Engine::getRPM);
 }
+#endif

@@ -6,7 +6,7 @@ project(CivicEngine)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCES
+set(ENGINE_LOGIC_SOURCES
 	src/Transmission.cpp
 	src/FuelTank.cpp
 	src/Wheel.cpp
@@ -24,7 +24,7 @@ set(HEADERS
 	include/Tachometer.h
 	include/Car.h)
 
-add_executable(CivicEngine ${SOURCES} ${HEADERS})
+add_executable(CivicEngine src/main.cpp ${ENGINE_LOGIC_SOURCES} ${HEADERS})
 
 target_include_directories(CivicEngine PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -63,10 +63,11 @@ set(TEST_SOURCES
 add_executable(
 	CivicEngineTests
 	${TEST_SOURCES}
+	${ENGINE_LOGIC_SOURCES}
+	${HEADERS}
 )
-target_link_libraries(
-	CivicEngineTests
-	gtest_main
-)
+target_link_libraries(CivicEngineTests PRIVATE GTest::gtest_main)
 target_include_directories(CivicEngineTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_sources(CivicEngineTests PRIVATE ${SOURCES})
+
+include(GoogleTest)
+gtest_discover_tests(CivicEngineTests)

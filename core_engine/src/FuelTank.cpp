@@ -1,5 +1,7 @@
 #include "FuelTank.h"
+#ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
+#endif
 
 FuelTank::FuelTank(int capacity)
 	: m_capacity(capacity), m_currentLevel(capacity/2), m_lowFuelThreshold(capacity / 10), m_isLow(false) {
@@ -45,6 +47,7 @@ bool FuelTank::isLow() const {
 	return m_isLow;
 }
 
+#ifdef __EMSCRIPTEN__
 EMSCRIPTEN_BINDINGS(fuel_tank_module) {
 	emscripten::class_<FuelTank>("FuelTank")
 		.constructor<int>()
@@ -56,3 +59,4 @@ EMSCRIPTEN_BINDINGS(fuel_tank_module) {
 		.function("isEmpty", &FuelTank::isEmpty)
 		.function("isLow", &FuelTank::isLow);
 }
+#endif

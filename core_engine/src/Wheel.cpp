@@ -1,5 +1,7 @@
 #include "Wheel.h"
+#ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
+#endif
 
 Wheel::Wheel(float diameterInInches, float widthInInches, float massInKg)
 	: 
@@ -21,9 +23,11 @@ void Wheel::applyTorque(float torque, float deltaTime) {
     m_angularVelocity *= 0.99f; // Simple damping to prevent infinite acceleration
 }
 
+#ifdef __EMSCRIPTEN__
 EMSCRIPTEN_BINDINGS(wheel_module) {
     emscripten::class_<Wheel>("Wheel")
         .constructor<float, float, float>()
         .function("getForwardVelocity", &Wheel::getForwardVelocity)
         .function("applyTorque", &Wheel::applyTorque);
 }
+#endif

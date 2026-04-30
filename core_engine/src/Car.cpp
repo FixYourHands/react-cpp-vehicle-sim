@@ -1,5 +1,8 @@
 #include "Car.h"
+
+#ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
+#endif
 
 void Car::update(float throttle, float deltaTime){
     m_engine.update(throttle,deltaTime,m_fuelTank,m_transmission);
@@ -16,7 +19,9 @@ void Car::update(float throttle, float deltaTime){
     }
 }
 
-EMSCRIPTEN_BINDINGS(engine_module) {
+#ifdef __EMSCRIPTEN__
+EMSCRIPTEN_BINDINGS(car_module) {
     emscripten::class_<Car>("Car")
         .function("update", &Car::update);
 }
+#endif
