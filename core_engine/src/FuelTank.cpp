@@ -4,7 +4,7 @@
 #endif
 
 FuelTank::FuelTank(int capacity)
-	: m_capacity(capacity), m_currentLevel(capacity/2), m_lowFuelThreshold(capacity / 10), m_isLow(false) {
+	: m_capacity(capacity), m_currentLevel(capacity), m_lowFuelThreshold(capacity / 10), m_isLow(false) {
 }
 
 void FuelTank::checkLowFuel() {
@@ -12,6 +12,8 @@ void FuelTank::checkLowFuel() {
 }
 
 void FuelTank::refuel(int amount) {
+	if (amount <= 0) return; // Ignore non-positive refueling
+
 	m_currentLevel += amount;
 	if (m_currentLevel > m_capacity) {
 		m_currentLevel = m_capacity; // Prevent overfilling
@@ -20,6 +22,8 @@ void FuelTank::refuel(int amount) {
 }
 
 void FuelTank::consume(int amount) {
+	if (amount <= 0) return; // Ignore non-positive consumption
+
 	m_currentLevel -= amount;
 	if (m_currentLevel < 0) {
 		m_currentLevel = 0; // Prevent negative fuel level
