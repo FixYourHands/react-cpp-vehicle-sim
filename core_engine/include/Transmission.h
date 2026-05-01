@@ -31,6 +31,8 @@ public:
 	float getCurrentGearRatio() const;
 	void upShift();
 	void downShift();
+	void shiftToGear(int gear);
 	void neutralShift();
+	bool isInNeutral() const;
 	//bool canShift() const;
 };

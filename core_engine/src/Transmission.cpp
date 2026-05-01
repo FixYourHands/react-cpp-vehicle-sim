@@ -26,7 +26,7 @@ void Transmission::upShift() {
 }
 
 void Transmission::downShift() {
-	if (m_currentGear != Gear::First) {
+	if (m_currentGear != Gear::Neutral && m_currentGear != Gear::First) {
 		m_currentGear = static_cast<Gear>(static_cast<int>(m_currentGear) - 1);
 	}
 	else {
@@ -34,8 +34,21 @@ void Transmission::downShift() {
 	}
 }
 
+void Transmission::shiftToGear(int gear) {
+	if (gear >= 0 && gear <= m_maxGear) {
+		m_currentGear = static_cast<Gear>(gear);
+	}
+	else {
+		std::cout << "Invalid gear: " << gear << std::endl;
+	}
+}
+
 void Transmission::neutralShift() {
 	m_currentGear = Gear::Neutral;
+}
+
+bool Transmission::isInNeutral() const {
+	return m_currentGear == Gear::Neutral;
 }
 
 #ifdef __EMSCRIPTEN__
@@ -46,6 +59,8 @@ EMSCRIPTEN_BINDINGS(transmission_module) {
 		.function("getCurrentGearRatio", &Transmission::getCurrentGearRatio)
 		.function("upShift", &Transmission::upShift)
 		.function("downShift", &Transmission::downShift)
-		.function("neutralShift", &Transmission::neutralShift);
+		.function("neutralShift", &Transmission::neutralShift)
+		.function("isInNeutral", &Transmission::isInNeutral);
+		.function("shiftToGear", &Transmission::shiftToGear);
 }
 #endif
