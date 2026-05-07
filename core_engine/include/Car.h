@@ -15,6 +15,8 @@ private:
     Tachometer m_tachometer;
     Transmission m_transmission;
     FuelTank m_fuelTank;
+    float m_vehicleMass;
 public:
+    Car(float massInKg);
     void update(float throttle, float deltaTime);
 };

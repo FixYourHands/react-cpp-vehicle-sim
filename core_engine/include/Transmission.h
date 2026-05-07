@@ -16,6 +16,7 @@ class Transmission
 {
 	Gear m_currentGear;
 	constexpr static int m_maxGear{ 6 };
+	constexpr float m_FinalDriveRatio{ 3.842f };
 	static constexpr std::array<float, m_maxGear + 1> m_gearRatios{
 		0.0f, // Neutral
 		3.64f, // First
@@ -29,6 +30,8 @@ public:
 	Transmission();
 	int getCurrentGear() const;
 	float getCurrentGearRatio() const;
+	float getFinalDriveRatio() const;
+	float getTotalGearRatio() const;
 	void upShift();
 	void downShift();
 	void shiftToGear(int gear);

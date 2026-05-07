@@ -11,5 +11,5 @@ private:
 public:
     Wheel(float diameterInInches,float widthInInches, float massInKg = 15.0f);
     float getForwardVelocity() const;
-    void applyTorque(float torque, float deltaTime);
+    void applyTorque(float torque, float deltaTime, float verticalLoad, float frictionCoefficient);
 };

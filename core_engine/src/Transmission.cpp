@@ -16,6 +16,14 @@ float Transmission::getCurrentGearRatio() const {
 	return m_gearRatios[static_cast<int>(m_currentGear)];
 }
 
+float Transmission::getFinalDriveRatio() const {
+	return m_FinalDriveRatio;
+}
+
+float Transmission::getTotalGearRatio() const {
+	return getCurrentGearRatio() * getFinalDriveRatio();
+}
+
 void Transmission::upShift() {
 	if (m_currentGear != Gear::Sixth) {
 		m_currentGear = static_cast<Gear>(static_cast<int>(m_currentGear) + 1);
@@ -57,6 +65,8 @@ EMSCRIPTEN_BINDINGS(transmission_module) {
 		.constructor<>()
 		.function("getCurrentGear", &Transmission::getCurrentGear)
 		.function("getCurrentGearRatio", &Transmission::getCurrentGearRatio)
+		.function("getFinalDriveRatio", &Transmission::getFinalDriveRatio)
+		.function("getTotalGearRatio", &Transmission::getTotalGearRatio)
 		.function("upShift", &Transmission::upShift)
 		.function("downShift", &Transmission::downShift)
 		.function("neutralShift", &Transmission::neutralShift)

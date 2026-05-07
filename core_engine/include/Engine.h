@@ -8,9 +8,11 @@ private:
 	float m_currentRPM;
 	float m_maxTorque;
 	float m_outputTorque;
+	float m_throttleInput;
 public:
 	Engine(float maxTorque = 400.f);
-	void update(float throttleInput, float deltaTime, FuelTank& fuelTank, Transmission& transmission);
+	void update(float deltaTime, FuelTank& fuelTank, Transmission& transmission);
+	void setThrottleInput(float throttleInput);
 	float getOutputTorque() const;
 	float getRPM() const;
 
