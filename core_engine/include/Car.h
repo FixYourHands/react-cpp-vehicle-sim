@@ -16,6 +16,10 @@ private:
     Transmission m_transmission;
     FuelTank m_fuelTank;
     float m_vehicleMass;
+    float m_vehicleSpeed;
+    void updateDashboardUI(float deltaTime);
+    void applyTorqueToWheels(float deltaTime);
+    void updateEngineRPM(float throttle, float deltaTime);
 public:
     Car(float massInKg);
     void update(float throttle, float deltaTime);

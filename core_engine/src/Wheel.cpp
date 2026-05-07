@@ -1,4 +1,5 @@
 #include "Wheel.h"
+#include <algorithm>
 #ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
 #endif
@@ -13,6 +14,10 @@ Wheel::Wheel(float diameterInInches, float widthInInches, float massInKg)
 
 float Wheel::getForwardVelocity() const {
 	return m_angularVelocity * (m_diameter / 2.0f);
+}
+
+float Wheel::getAngularVelocity() const {
+    return m_angularVelocity;
 }
 
 void Wheel::applyTorque(float engineTorque, float deltaTime, float verticalLoad, float frictionCoefficient) {
@@ -36,5 +41,6 @@ EMSCRIPTEN_BINDINGS(wheel_module) {
         .constructor<float, float, float>()
         .function("getForwardVelocity", &Wheel::getForwardVelocity)
         .function("applyTorque", &Wheel::applyTorque);
+        .function("getAngularVelocity", &Wheel::getAngularVelocity);
 }
 #endif
