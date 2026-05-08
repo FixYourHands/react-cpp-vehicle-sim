@@ -3,15 +3,15 @@
 #include <emscripten/bind.h>
 #endif
 
-FuelTank::FuelTank(int capacity)
-	: m_capacity(capacity), m_currentLevel(capacity), m_lowFuelThreshold(capacity / 10), m_isLow(false) {
+FuelTank::FuelTank(float capacity)
+	: m_capacity(capacity), m_currentLevel(capacity), m_lowFuelThreshold(capacity / FuelConstants::LOW_FUEL_PERCENTAGE), m_isLow(false) {
 }
 
 void FuelTank::checkLowFuel() {
 	m_isLow = (m_currentLevel <= m_lowFuelThreshold);
 }
 
-void FuelTank::refuel(int amount) {
+void FuelTank::refuel(float amount) {
 	if (amount <= 0) return; // Ignore non-positive refueling
 
 	m_currentLevel += amount;
@@ -21,7 +21,7 @@ void FuelTank::refuel(int amount) {
 	checkLowFuel();
 }
 
-void FuelTank::consume(int amount) {
+void FuelTank::consume(float amount) {
 	if (amount <= 0) return; // Ignore non-positive consumption
 
 	m_currentLevel -= amount;
@@ -31,16 +31,16 @@ void FuelTank::consume(int amount) {
 	checkLowFuel();
 }
 
-int FuelTank::getCurrentLevel() const {
+float FuelTank::getCurrentLevel() const {
 	return m_currentLevel;
 }
 
-int FuelTank::getCapacity() const {
+float FuelTank::getCapacity() const {
 	return m_capacity;
 }
 
 float FuelTank::getCurrentPercentage() const {
-	return (static_cast<float>(m_currentLevel) / m_capacity) * 100.0f;
+	return (m_currentLevel / m_capacity) * 100.0f;
 }
 
 bool FuelTank::isEmpty() const {

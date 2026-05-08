@@ -6,8 +6,8 @@
 
 Wheel::Wheel(float diameterInInches, float widthInInches, float massInKg)
 	: 
-    m_diameter(diameterInInches * INCH_TO_METER), 
-    m_width(widthInInches * INCH_TO_METER), 
+    m_diameter(diameterInInches * PhysicsConstants::INCH_TO_METER), 
+    m_width(widthInInches * PhysicsConstants::INCH_TO_METER), 
     m_angularVelocity(0.0f), 
     m_mass(massInKg) 
     {}
@@ -32,7 +32,7 @@ void Wheel::applyTorque(float engineTorque, float deltaTime, float verticalLoad,
     float netTorque {engineTorque - actualTraction};
     float angularAcceleration {netTorque / inertia}; // α = τ / I
     m_angularVelocity += angularAcceleration * deltaTime;
-    m_angularVelocity *= 0.99f; // Simple damping to prevent infinite acceleration
+    m_angularVelocity *= PhysicsConstants::VELOCITY_DAMPING_FACTOR; // Simple damping to prevent infinite acceleration
 }
 
 #ifdef __EMSCRIPTEN__

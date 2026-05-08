@@ -5,12 +5,15 @@
 #endif
 
 Car::Car(float massInKg)
-    : m_engine(400.f), 
-      m_wheels{ Wheel(25.0f, 10.5f, 15.0f), Wheel(25.0f, 10.5f, 15.0f), Wheel(25.0f, 10.5f, 15.0f), Wheel(25.0f, 10.5f, 15.0f) },
-      m_speedometer(25.0f),
-      m_tachometer(1.f),
-      m_transmission(),
-      m_fuelTank(1000),
+    : m_engine(EngineConstants::MAX_TORQUE), 
+      m_wheels{ Wheel(WheelConstants::CIVIC_TIRE_DIAMETER_INCHES, WheelConstants::CIVIC_TIRE_WIDTH_INCHES, WheelConstants::CIVIC_TIRE_MASS_KG), 
+                Wheel(WheelConstants::CIVIC_TIRE_DIAMETER_INCHES, WheelConstants::CIVIC_TIRE_WIDTH_INCHES, WheelConstants::CIVIC_TIRE_MASS_KG), 
+                Wheel(WheelConstants::CIVIC_TIRE_DIAMETER_INCHES, WheelConstants::CIVIC_TIRE_WIDTH_INCHES, WheelConstants::CIVIC_TIRE_MASS_KG), 
+                Wheel(WheelConstants::CIVIC_TIRE_DIAMETER_INCHES, WheelConstants::CIVIC_TIRE_WIDTH_INCHES, WheelConstants::CIVIC_TIRE_MASS_KG) },
+      m_speedometer(WheelConstants::CIVIC_TIRE_DIAMETER_INCHES),
+      m_tachometer(TachometerConstants::SMOOTHING_FACTOR),
+      m_transmission(TransmissionConstants::FINAL_DRIVE_RATIO),
+      m_fuelTank(FuelConstants::MAX_FUEL_CAPACITY),
       m_vehicleMass(massInKg),
       m_vehicleSpeed(0.0f) {}
 
@@ -23,7 +26,7 @@ void Car::update(float throttle, float deltaTime){
 
 void Car::updateEngineRPM(float throttle,float deltaTime){
     float wheelVelocity {m_wheels[0].getAngularVelocity()};
-    float syncedRPM{wheelVelocity * m_transmission.getTotalGearRatio() * (60.0f / 6.28318f)};
+    float syncedRPM{wheelVelocity * m_transmission.getTotalGearRatio() * PhysicsConstants::ANGULAR_VELOCITY_TO_RPM};
     m_engine.setThrottleInput(throttle);
     m_engine.setRPM(syncedRPM);
     m_engine.update(deltaTime,m_fuelTank,m_transmission);
@@ -31,11 +34,10 @@ void Car::updateEngineRPM(float throttle,float deltaTime){
 
 void Car::applyTorqueToWheels(float deltaTime){
     float wheelTorque {m_engine.getOutputTorque() * m_transmission.getTotalGearRatio()};
-    wheelTorque *= 0.85f; // Drivetrain efficiency factor
+    wheelTorque *= PhysicsConstants::DRIVETRAIN_EFFICIENCY; // Drivetrain efficiency factor
     float torquePerWheel = wheelTorque / 2.0f; // Assuming torque is split between front wheels
-    float gravity {9.81f};
-    float frontWheelWeight{(m_vehicleMass * gravity * 0.6f)/2.0f}; // Assuming 60% weight on front wheels
-    float frictionCoefficient {0.9f}; // Typical tire-road friction coefficient
+    float frontWheelWeight{(m_vehicleMass * PhysicsConstants::GRAVITY * PhysicsConstants::FRONT_WEIGHT_DISTRIBUTION)/2.0f}; // Assuming 60% weight on front wheels
+    float frictionCoefficient {PhysicsConstants::FRICTION_COEFFICIENT}; // Typical tire-road friction coefficient
     m_wheels[0].applyTorque(torquePerWheel, deltaTime,frontWheelWeight,frictionCoefficient);
     m_wheels[1].applyTorque(torquePerWheel, deltaTime,frontWheelWeight,frictionCoefficient);
 }

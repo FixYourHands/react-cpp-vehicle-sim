@@ -4,8 +4,8 @@
 #include <emscripten/bind.h>
 #endif
 
-Transmission::Transmission()
-	: m_currentGear(Gear::Neutral) {
+Transmission::Transmission(float finalDriveRatio)
+	: m_currentGear(Gear::Neutral), m_FinalDriveRatio(finalDriveRatio) {
 }
 
 int Transmission::getCurrentGear() const {
@@ -13,7 +13,7 @@ int Transmission::getCurrentGear() const {
 }
 
 float Transmission::getCurrentGearRatio() const {
-	return m_gearRatios[static_cast<int>(m_currentGear)];
+	return TransmissionConstants::GEAR_RATIOS[static_cast<int>(m_currentGear)];
 }
 
 float Transmission::getFinalDriveRatio() const {

@@ -22,7 +22,8 @@ set(HEADERS
 	include/Wheel.h
 	include/Speedometer.h
 	include/Tachometer.h
-	include/Car.h)
+	include/Car.h
+	include/Constants.h)
 
 add_executable(CivicEngine src/main.cpp ${ENGINE_LOGIC_SOURCES} ${HEADERS})
 

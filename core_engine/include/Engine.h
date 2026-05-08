@@ -1,6 +1,7 @@
 #pragma once
 #include "Transmission.h"
 #include "FuelTank.h"
+#include "Constants.h"
 
 class Engine
 {
@@ -11,7 +12,7 @@ private:
 	float m_throttleInput;
 	float calculateTorqueMultiplier() const;
 public:
-	Engine(float maxTorque = 400.f);
+	Engine(float maxTorque = EngineConstants::MAX_TORQUE);
 	void update(float deltaTime, FuelTank& fuelTank, Transmission& transmission);
 	void setThrottleInput(float throttleInput);
 	float getOutputTorque() const;

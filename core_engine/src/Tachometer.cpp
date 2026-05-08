@@ -12,13 +12,7 @@ void Tachometer::update(float engineRPM, float deltaTime) {
     m_displayedRPM += (engineRPM - m_displayedRPM) * m_smoothingFactor * deltaTime;
 
     // Clamp the displayed RPM to the maximum value
-    if (m_displayedRPM > MAX_RPM) {
-        m_displayedRPM = MAX_RPM;
-    }
-
-    if (m_displayedRPM < 0.0f) {
-        m_displayedRPM = 0.0f;
-    }
+    m_displayedRPM = std::clamp(m_displayedRPM, 0.0f, TachometerConstants::MAX_RPM);
 }
 
 float Tachometer::getDisplayedRPM() const {

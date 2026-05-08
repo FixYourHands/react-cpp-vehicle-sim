@@ -1,5 +1,7 @@
 #pragma once
+#include "Constants.h"
 #include <array>
+
 
 enum class Gear
 {
@@ -16,18 +18,9 @@ class Transmission
 {
 	Gear m_currentGear;
 	constexpr static int m_maxGear{ 6 };
-	static constexpr float m_FinalDriveRatio{ 3.842f };
-	static constexpr std::array<float, m_maxGear + 1> m_gearRatios{
-		0.0f, // Neutral
-		3.64f, // First
-		2.08f, // Second
-		1.36f, // Third
-		1.02f, // Fourth
-		0.83f, // Fifth
-		0.66f  // Sixth
-	};
+	float m_FinalDriveRatio;
 public:
-	Transmission();
+	Transmission(float finalDriveRatio = TransmissionConstants::FINAL_DRIVE_RATIO);
 	int getCurrentGear() const;
 	float getCurrentGearRatio() const;
 	float getFinalDriveRatio() const;

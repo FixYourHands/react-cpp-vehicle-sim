@@ -5,6 +5,7 @@
 #include "Tachometer.h"
 #include "Transmission.h"
 #include "FuelTank.h"
+#include "Constants.h"
 #include <array>
 
 class Car{
@@ -21,6 +22,6 @@ private:
     void applyTorqueToWheels(float deltaTime);
     void updateEngineRPM(float throttle, float deltaTime);
 public:
-    Car(float massInKg);
+    Car(float massInKg = CarConstants::MASS_IN_KG);
     void update(float throttle, float deltaTime);
 };

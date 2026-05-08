@@ -1,6 +1,5 @@
 #pragma once
-
-static constexpr float INCH_TO_METER = 0.0254f;
+#include "Constants.h"
 
 class Wheel {
 private:
@@ -9,7 +8,7 @@ private:
     float m_angularVelocity; // in radians per second
     float m_mass; // in kilograms
 public:
-    Wheel(float diameterInInches,float widthInInches, float massInKg = 15.0f);
+    Wheel(float diameterInInches,float widthInInches, float massInKg = WheelConstants::CIVIC_TIRE_MASS_KG);
     float getForwardVelocity() const;
     float getAngularVelocity() const;
     void applyTorque(float torque, float deltaTime, float verticalLoad, float frictionCoefficient);

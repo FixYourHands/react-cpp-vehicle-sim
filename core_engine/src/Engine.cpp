@@ -13,34 +13,34 @@ Engine::Engine(float maxTorque)
 
 float Engine::calculateTorqueMultiplier() const{
     float torqueMultipler{1.f};
-    if (m_currentRPM < 2500.f){
-        torqueMultipler = m_currentRPM / 3500.f; 
+    if (m_currentRPM < EngineConstants::TORQUE_CURVE_LOW_THRESHOLD){
+        torqueMultipler = m_currentRPM / EngineConstants::TORQUE_CURVE_FALLOFF_RATE; 
     }
-    else if (m_currentRPM > 4500.f){
-        torqueMultipler = 1.f - (m_currentRPM - 4500.f) / 3500.f;
+    else if (m_currentRPM > EngineConstants::TORQUE_CURVE_HIGH_THRESHOLD){
+        torqueMultipler = 1.f - (m_currentRPM - EngineConstants::TORQUE_CURVE_HIGH_THRESHOLD) / EngineConstants::TORQUE_CURVE_FALLOFF_RATE;
     }
-    return torqueMultipler;
+    return std::clamp(torqueMultipler, 0.f, 1.f);
 }
 
 void Engine::update(float deltaTime, FuelTank& fuelTank, Transmission& transmission){
     if (fuelTank.isEmpty()){
         m_outputTorque = 0.f;
-        m_currentRPM -= 500.f * deltaTime;
+        m_currentRPM -= EngineConstants::ENGINE_FRICTION_DECAY_RATE * deltaTime;
 
         m_currentRPM = std::max(0.f,m_currentRPM);
         return;
     }
 
-    int fuelConsumed{static_cast<int>(m_throttleInput * 10.f * deltaTime)};
+    float fuelConsumed{m_throttleInput * Constants::FUEL_CONSUMPTION_RATE * deltaTime};
     fuelTank.consume(fuelConsumed);
 
     m_outputTorque = m_throttleInput * m_maxTorque * calculateTorqueMultiplier();
 
     if (transmission.isInNeutral()){
-        m_currentRPM += (m_throttleInput * 5000.f - 1000.f) * deltaTime;
+        m_currentRPM += (m_throttleInput * EngineConstants::RPM_INCREASE_RATE - EngineConstants::RPM_DECREASE_RATE) * deltaTime;
     }
 
-    m_currentRPM = std::clamp(m_currentRPM, 800.f, 8000.f);
+    m_currentRPM = std::clamp(m_currentRPM, EngineConstants::IDLE_RPM, EngineConstants::MAX_RPM);
 }
 
 void Engine::setThrottleInput(float throttleInput){
@@ -56,7 +56,7 @@ float Engine::getRPM() const{
 }
 
 void Engine::setRPM(float rpm){
-    m_currentRPM = std::clamp(rpm, 0.f, 8000.f);
+    m_currentRPM = std::clamp(rpm, 0.f, EngineConstants::MAX_RPM);
 }
     
 #ifdef __EMSCRIPTEN__
