@@ -1,5 +1,6 @@
 #include "Wheel.h"
 #include <algorithm>
+#include <iostream>
 #ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
 #endif
@@ -22,14 +23,20 @@ float Wheel::getAngularVelocity() const {
 
 void Wheel::applyTorque(float engineTorque, float deltaTime, float verticalLoad, float frictionCoefficient) {
     float radius {m_diameter / 2.0f};
-    float tractionTorque{frictionCoefficient * verticalLoad * radius};
-    float actualTraction {std::min(engineTorque, tractionTorque)};
-
-    if (engineTorque < 0) {
-        actualTraction *= -1.0f; // Reverse direction for braking
-    }
+    float maxTractionTorque {verticalLoad * frictionCoefficient * radius}; 
+    float absEngineTorque {std::abs(engineTorque)};
+    float absTraction{std::min(absEngineTorque, maxTractionTorque)};
+    float actualTraction{engineTorque >= 0.f ? absTraction : -absTraction}; // Preserve the direction of the torque
     float inertia {0.5f * m_mass * radius * radius}; // Moment of inertia for a solid cylinder
-    float netTorque {engineTorque - actualTraction};
+
+    float netTorque{0.f};
+    if (absEngineTorque > maxTractionTorque) {
+        netTorque = engineTorque - (maxTractionTorque * (engineTorque > 0 ? 1.0f : -1.0f)); // Full torque is applied if within traction limits
+    } else {
+        float vehicleInertia{(CarConstants::MASS_IN_KG/2.0f) * radius * radius}; // Approximate inertia of the vehicle's mass on the wheel
+        inertia += vehicleInertia; 
+        netTorque = engineTorque; 
+    }
     float angularAcceleration {netTorque / inertia}; // α = τ / I
     m_angularVelocity += angularAcceleration * deltaTime;
     m_angularVelocity *= PhysicsConstants::VELOCITY_DAMPING_FACTOR; // Simple damping to prevent infinite acceleration

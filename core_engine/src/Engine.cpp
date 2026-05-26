@@ -31,7 +31,7 @@ void Engine::update(float deltaTime, FuelTank& fuelTank, Transmission& transmiss
         return;
     }
 
-    float fuelConsumed{m_throttleInput * Constants::FUEL_CONSUMPTION_RATE * deltaTime};
+    float fuelConsumed{m_throttleInput * FuelConstants::FUEL_CONSUMPTION_RATE * deltaTime};
     fuelTank.consume(fuelConsumed);
 
     m_outputTorque = m_throttleInput * m_maxTorque * calculateTorqueMultiplier();

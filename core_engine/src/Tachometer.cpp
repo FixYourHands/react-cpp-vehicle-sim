@@ -1,4 +1,5 @@
 #include "Tachometer.h"
+#include <algorithm>
 #ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
 #endif

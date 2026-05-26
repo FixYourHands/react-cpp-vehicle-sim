@@ -1,10 +1,10 @@
 #pragma once
+#include <array>
 
 namespace WheelConstants {
     inline constexpr float CIVIC_TIRE_DIAMETER_INCHES {25.0f};
     inline constexpr float CIVIC_TIRE_WIDTH_INCHES {10.5f};
     inline constexpr float CIVIC_TIRE_MASS_KG {15.0f};
-    inline constexpr float VELOCITY_DAMPING_FACTOR {0.99f}; // Damping factor to prevent infinite acceleration
 }
 
 namespace PhysicsConstants {
@@ -15,7 +15,7 @@ namespace PhysicsConstants {
     inline constexpr float METERS_PER_SECOND_TO_MPH {2.23694f}; // 1 m/s = 2.23694 mph
     inline constexpr float INCH_TO_METER {0.0254f};
     inline constexpr float ANGULAR_VELOCITY_TO_RPM {9.5493f}; // 1 rad/s = 9.5493 RPM
-
+    inline constexpr float VELOCITY_DAMPING_FACTOR {0.99f}; // Damping factor to prevent infinite acceleration
 }
 
 namespace TachometerConstants {
