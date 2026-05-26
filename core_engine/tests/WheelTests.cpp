@@ -25,7 +25,7 @@ TEST_P(WheelVelocityIncreaseTests, UpdateForwardVelocityIncreasesWithTorque) {
     }
 
     // The forward velocity should increase after applying torque
-    SUCCEED() << "Final Forward Velocity: " << wheel.getForwardVelocity() << " m/s, Base Forward Velocity: " << baseWheel.getForwardVelocity() << " m/s";
+    std::cout << "Final Angular Velocity: " << wheel.getAngularVelocity() << " rad/s, Base Angular Velocity: " << baseWheel.getAngularVelocity() << " rad/s" << std::endl;
     std::cout << "Final Forward Velocity: " << wheel.getForwardVelocity() << " m/s, Base Forward Velocity: " << baseWheel.getForwardVelocity() << " m/s" << std::endl;
     EXPECT_GT(wheel.getForwardVelocity(), baseWheel.getForwardVelocity());
 }
