@@ -1,17 +1,17 @@
 #include <gtest/gtest.h>
 #include "FuelTank.h"
 
-class FuelLowTest : public ::testing::TestWithParam<std::pair<int,bool>>{};
-class FuelConsumptionTest : public ::testing::TestWithParam<std::pair<int,int>>{};
-class FuelRefuelTest : public ::testing::TestWithParam<std::pair<int,int>>{};
-class FuelPercentageTest : public ::testing::TestWithParam<std::pair<int,float>>{};
+class FuelLowTest : public ::testing::TestWithParam<std::pair<float,bool>>{};
+class FuelConsumptionTest : public ::testing::TestWithParam<std::pair<float,float>>{};
+class FuelRefuelTest : public ::testing::TestWithParam<std::pair<float,float>>{};
+class FuelPercentageTest : public ::testing::TestWithParam<std::pair<float,float>>{};
 
 
 TEST_P(FuelConsumptionTest, ConsumeFuel){
     float consumedFuel = GetParam().first;
     float expectedLevel = GetParam().second;
 
-    FuelTank fuelTank(100);
+    FuelTank fuelTank(100.0f);
     fuelTank.consume(consumedFuel);
     EXPECT_EQ(fuelTank.getCurrentLevel(), expectedLevel);
 }
@@ -30,10 +30,10 @@ INSTANTIATE_TEST_SUITE_P(
 );
 
 TEST_P(FuelLowTest, FuelIsLow){
-    int consumedFuel = GetParam().first;
+    float consumedFuel = GetParam().first;
     bool expectedLowStatus = GetParam().second;
 
-    FuelTank fuelTank(100);
+    FuelTank fuelTank(100.0f);
     fuelTank.consume(consumedFuel);
     EXPECT_EQ(fuelTank.isLow(), expectedLowStatus);
 }
@@ -54,7 +54,7 @@ TEST_P(FuelRefuelTest, RefuelFuel){
     float refueledAmount = GetParam().first;
     float expectedLevel = GetParam().second;
 
-    FuelTank fuelTank(100);
+    FuelTank fuelTank(100.0f);
     fuelTank.consume(50.0f); // Start at 50% fuel
     fuelTank.refuel(refueledAmount);
     EXPECT_EQ(fuelTank.getCurrentLevel(), expectedLevel);
@@ -76,7 +76,7 @@ TEST_P(FuelPercentageTest, FuelPercentage){
     float consumedFuel = GetParam().first;
     float expectedPercentage = GetParam().second;
 
-    FuelTank fuelTank(100);
+    FuelTank fuelTank(100.0f);
     fuelTank.consume(consumedFuel);
     EXPECT_FLOAT_EQ(fuelTank.getCurrentPercentage(), expectedPercentage);
 }
