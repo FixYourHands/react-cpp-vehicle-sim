@@ -27,14 +27,17 @@ namespace FuelConstants {
     inline constexpr float MAX_FUEL_CAPACITY {1000.0f}; // in arbitrary fuel units
     inline constexpr float FUEL_CONSUMPTION_RATE {10.0f}; // fuel units consumed per second at full throttle
     inline constexpr float LOW_FUEL_PERCENTAGE {10.0f}; // 10% of capacity
-}
+    inline constexpr float BASE_FUEL_CONSUMPTION_RATE {0.00025f};
+    inline constexpr float FUEL_CONSUMPTION_RATE_INCREASE_PER_RPM {0.00003f}; // Additional fuel consumption per RPM
+    inline constexpr float THROTTLE_FUEL_FACTOR {0.0135f}; // Additional fuel consumption factor based on throttle input
+} 
 
 namespace EngineConstants {
     inline constexpr float MAX_TORQUE {400.0f}; // in Nm
     inline constexpr float IDLE_RPM {800.0f};
     inline constexpr float MAX_RPM {8000.0f};
     inline constexpr float RPM_INCREASE_RATE {5000.0f}; // RPM increase per second at full throttle
-    inline constexpr float RPM_DECREASE_RATE {1000.0f}; // RPM decrease per second when not throttling
+    inline constexpr float RPM_DECREASE_RATE {800.0f}; // RPM decrease per second when not throttling
     inline constexpr float ENGINE_FRICTION_DECAY_RATE {500.0f}; // RPM decrease per second due to engine friction when not throttling
     inline constexpr float TORQUE_CURVE_LOW_THRESHOLD {2500.0f}; // RPM below which torque starts to drop
     inline constexpr float TORQUE_CURVE_HIGH_THRESHOLD {4500.0f}; // RPM above which torque starts to drop

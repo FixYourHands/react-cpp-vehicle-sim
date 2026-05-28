@@ -1,5 +1,6 @@
 #include "Tachometer.h"
 #include <algorithm>
+#include <cmath>
 #ifdef __EMSCRIPTEN__
 #include <emscripten/bind.h>
 #endif
@@ -9,8 +10,9 @@ Tachometer::Tachometer(float smoothingFactor)
 }
 
 void Tachometer::update(float engineRPM, float deltaTime) {
+    float blendFactor{1.0f - std::exp(-m_smoothingFactor * deltaTime)};
     // Smoothly update the displayed RPM using a simple exponential moving average
-    m_displayedRPM += (engineRPM - m_displayedRPM) * m_smoothingFactor * deltaTime;
+    m_displayedRPM += (engineRPM - m_displayedRPM) * blendFactor;
 
     // Clamp the displayed RPM to the maximum value
     m_displayedRPM = std::clamp(m_displayedRPM, 0.0f, TachometerConstants::MAX_RPM);

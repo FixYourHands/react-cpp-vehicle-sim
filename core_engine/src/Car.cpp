@@ -25,11 +25,16 @@ void Car::update(float throttle, float deltaTime){
 
 
 void Car::updateEngineRPM(float throttle,float deltaTime){
-    float wheelVelocity {m_wheels[0].getAngularVelocity()};
-    float syncedRPM{wheelVelocity * m_transmission.getTotalGearRatio() * PhysicsConstants::ANGULAR_VELOCITY_TO_RPM};
     m_engine.setThrottleInput(throttle);
-    m_engine.setRPM(syncedRPM);
-    m_engine.update(deltaTime,m_fuelTank,m_transmission);
+    if (m_transmission.isInNeutral()){
+        m_engine.update(deltaTime,m_fuelTank,m_transmission);
+    }
+    else {
+        float wheelVelocity {m_wheels[0].getAngularVelocity()};
+        float syncedRPM{wheelVelocity * m_transmission.getTotalGearRatio() * PhysicsConstants::ANGULAR_VELOCITY_TO_RPM};
+        m_engine.setRPM(syncedRPM);
+        m_engine.update(deltaTime,m_fuelTank,m_transmission);
+    }
 }
 
 void Car::applyTorqueToWheels(float deltaTime){
