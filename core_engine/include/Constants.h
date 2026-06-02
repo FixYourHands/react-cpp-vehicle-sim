@@ -42,12 +42,14 @@ namespace EngineConstants {
     inline constexpr float TORQUE_CURVE_LOW_THRESHOLD {2500.0f}; // RPM below which torque starts to drop
     inline constexpr float TORQUE_CURVE_HIGH_THRESHOLD {4500.0f}; // RPM above which torque starts to drop
     inline constexpr float TORQUE_CURVE_FALLOFF_RATE {3500.0f}; // Rate at which torque falls off outside the optimal RPM range
-
+    inline constexpr float LAUNCH_RPM {3000.0f}; // Target RPM for clutch launch when wheels are stationary and throttle is held
 }
 
 namespace TransmissionConstants {
     inline constexpr float FINAL_DRIVE_RATIO {3.842f};
     inline constexpr std::array<float, 7> GEAR_RATIOS{0.0f, 3.64f, 2.08f, 1.36f, 1.02f, 0.83f, 0.66f}; // Neutral + 6 gears
+    inline constexpr float CLUTCH_BLEND_RATE {8.0f}; // How quickly the engine RPM blends toward the wheel-synced RPM when clutch is engaged (units: 1/second)
+    inline constexpr float CLUTCH_WHEEL_ANGULAR_VELOCITY_THRESHOLD {0.01f}; // Minimum wheel angular velocity before clutch starts syncing to the wheel
 }
 
 namespace CarConstants {

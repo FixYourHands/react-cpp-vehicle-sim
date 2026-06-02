@@ -10,6 +10,8 @@
 
 struct CarTelemetryData {
     float speed;
+    float wheelAngularVelocity;
+    float wheelForwardVelocity;
     float engineRPM;
     float tachometerRPM;
     float currentFuelLevel;
@@ -29,6 +31,7 @@ private:
     FuelTank m_fuelTank;
     float m_vehicleMass;
     float m_vehicleSpeed;
+    float m_clutchEngagement;
     void updateDashboardUI(float deltaTime);
     void applyTorqueToWheels(float deltaTime);
     void updateEngineRPM(float throttle, float deltaTime);
@@ -36,5 +39,7 @@ public:
     Car(float massInKg = CarConstants::MASS_IN_KG);
     void update(float throttle, float deltaTime);
     void toggleEngineStarter();
+    void shiftToGear(int gear);
+    void setClutchEngagement(float engagement);
     CarTelemetryData getTelemetryData() const;
 };
