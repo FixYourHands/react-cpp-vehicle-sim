@@ -15,7 +15,12 @@ Car::Car(float massInKg)
       m_transmission(TransmissionConstants::FINAL_DRIVE_RATIO),
       m_fuelTank(FuelConstants::MAX_FUEL_CAPACITY),
       m_vehicleMass(massInKg),
-      m_vehicleSpeed(0.0f) {}
+      m_vehicleSpeed(0.0f) 
+      {
+        if (!m_engine.isRunning()){
+            toggleEngineStarter();
+        }
+      }
 
 void Car::update(float throttle, float deltaTime){
     updateEngineRPM(throttle, deltaTime);
@@ -53,10 +58,34 @@ void Car::updateDashboardUI(float deltaTime){
     m_tachometer.update(m_engine.getRPM(), deltaTime);
 }
 
+void Car::toggleEngineStarter(){
+    if (m_engine.isRunning()){
+        m_engine.stopEngine();
+    }
+    else {
+        m_engine.startEngine();
+    }
+}
+
+CarTelemetryData Car::getTelemetryData() const {
+    CarTelemetryData data;
+    data.speed = m_vehicleSpeed;
+    data.engineRPM = m_engine.getRPM();
+    data.tachometerRPM = m_tachometer.getDisplayRPM();
+    data.currentFuelLevel = m_fuelTank.getCurrentLevel();
+    data.fuelRemainingPercentage = m_fuelTank.getCurrentPercentage();
+    data.currentGear = m_transmission.getCurrentGear();
+    data.isEngineOn = m_engine.isRunning();
+    data.isFuelLow = m_fuelTank.isFuelLow();
+    return data;
+}
+
 #ifdef __EMSCRIPTEN__
 EMSCRIPTEN_BINDINGS(car_module) {
     emscripten::class_<Car>("Car")
         .constructor<float>()
         .function("update", &Car::update);
+        .function("getTelemetryData", &Car::getTelemetryData);
+        .function("toggleEngineStarter", &Car::toggleEngineStarter);
 }
 #endif

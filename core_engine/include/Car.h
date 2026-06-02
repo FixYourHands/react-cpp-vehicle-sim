@@ -8,6 +8,17 @@
 #include "Constants.h"
 #include <array>
 
+struct CarTelemetryData {
+    float speed;
+    float engineRPM;
+    float tachometerRPM;
+    float currentFuelLevel;
+    float fuelRemainingPercentage;
+    int currentGear;
+    bool isEngineOn;
+    bool isFuelLow;
+};
+
 class Car{
 private:
     Engine m_engine;
@@ -24,4 +35,6 @@ private:
 public:
     Car(float massInKg = CarConstants::MASS_IN_KG);
     void update(float throttle, float deltaTime);
+    void toggleEngineStarter();
+    CarTelemetryData getTelemetryData() const;
 };
