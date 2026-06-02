@@ -47,7 +47,7 @@ EMSCRIPTEN_BINDINGS(wheel_module) {
     emscripten::class_<Wheel>("Wheel")
         .constructor<float, float, float>()
         .function("getForwardVelocity", &Wheel::getForwardVelocity)
-        .function("applyTorque", &Wheel::applyTorque);
+        .function("applyTorque", &Wheel::applyTorque)
         .function("getAngularVelocity", &Wheel::getAngularVelocity);
 }
 #endif

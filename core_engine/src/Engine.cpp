@@ -59,10 +59,11 @@ void Engine::update(float deltaTime, FuelTank& fuelTank, Transmission& transmiss
     if (transmission.isInNeutral()){
         float dynamicFriction{EngineConstants::RPM_DECREASE_RATE + (m_currentRPM * .1f)};
         m_currentRPM += (m_throttleInput * EngineConstants::RPM_INCREASE_RATE - dynamicFriction) * deltaTime;
+        m_currentRPM = std::clamp(m_currentRPM, EngineConstants::IDLE_RPM, EngineConstants::MAX_RPM);
     }
-
-
-    m_currentRPM = std::clamp(m_currentRPM, EngineConstants::IDLE_RPM, EngineConstants::MAX_RPM);
+    else {
+        m_currentRPM = std::clamp(m_currentRPM, 0.f, EngineConstants::MAX_RPM);
+    }
 }
 
 void Engine::setThrottleInput(float throttleInput){
@@ -85,13 +86,13 @@ void Engine::setRPM(float rpm){
 EMSCRIPTEN_BINDINGS(engine_module) {
     emscripten::class_<Engine>("Engine")
         .constructor<float>()
-        .function("update", &Engine::update);
-        .function("getOutputTorque", &Engine::getOutputTorque);
-        .function("getRPM",&Engine::getRPM);
-        .function("setThrottleInput", &Engine::setThrottleInput);
-        .function("setRPM", &Engine::setRPM);
-        .function("isRunning", &Engine::isRunning);
-        .function("startEngine", &Engine::startEngine);
+        .function("update", &Engine::update)
+        .function("getOutputTorque", &Engine::getOutputTorque)
+        .function("getRPM",&Engine::getRPM)
+        .function("setThrottleInput", &Engine::setThrottleInput)
+        .function("setRPM", &Engine::setRPM)
+        .function("isRunning", &Engine::isRunning)
+        .function("startEngine", &Engine::startEngine)
         .function("stopEngine", &Engine::stopEngine);
 }
 #endif

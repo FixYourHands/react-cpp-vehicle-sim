@@ -70,7 +70,7 @@ EMSCRIPTEN_BINDINGS(transmission_module) {
 		.function("upShift", &Transmission::upShift)
 		.function("downShift", &Transmission::downShift)
 		.function("neutralShift", &Transmission::neutralShift)
-		.function("isInNeutral", &Transmission::isInNeutral);
+		.function("isInNeutral", &Transmission::isInNeutral)
 		.function("shiftToGear", &Transmission::shiftToGear);
 }
 #endif
