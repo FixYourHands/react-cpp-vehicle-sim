@@ -70,5 +70,15 @@ add_executable(
 target_link_libraries(CivicEngineTests PRIVATE GTest::gtest_main)
 target_include_directories(CivicEngineTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+if(EMSCRIPTEN)
+    target_link_options(CivicEngineTests PRIVATE
+        "--bind"
+        "-sMODULARIZE=1"
+        "-sEXPORT_ES6=1"
+        "-sALLOW_MEMORY_GROWTH=1"
+    )
+    set_target_properties(CivicEngineTests PROPERTIES SUFFIX ".js")
+endif()
+
 include(GoogleTest)
 gtest_discover_tests(CivicEngineTests)
