@@ -1,12 +1,16 @@
 import "./Tachometer.css";
+import SpeedometerDisplay from '../Speedometer/SpeedometerDisplay.jsx';
 
 function TachometerDisplay({ rpm }) {
   const radius = 214;
   const circumference = Math.PI * radius;
-  const dashOffset = circumference - ((1000 +50)/ 8000) * circumference ;
-  const needleAngleDegrees = 180 - (5000) * (180 / 8000);
+  const dashOffset = circumference - ((3000 +50)/ 8000) * circumference ;
+  const needleAngleDegrees = 180 - (3000) * (180 / 8000);
   const centerX = 230;
   const centerY = 295;
+
+  const speedValue = 95; // Placeholder for speed value
+
   return (
     <svg width="550" height="450" viewBox="0 0 500 400">
       <defs>
@@ -43,6 +47,18 @@ function TachometerDisplay({ rpm }) {
         d="M 55 300 A 175 175 0 0 1 405 300"
         className="outer-ring-dark-red"
       />
+
+      {/* The MOVING RPM BAR */}
+      <path
+        d="M 18 300 A 212 212 0 0 1 442 300"
+        className="moving-rpm-arc"
+        strokeDasharray={circumference}
+        strokeDashoffset={dashOffset}
+        style={{ transition: "stroke-dashoffset 0.1s ease-out" }}
+      />
+
+      {/*Integrated Speedometer */}
+      <SpeedometerDisplay x={centerX} y={centerY} speed={speedValue} />
 
       {/*NUMBERS CODE */}
       <g className="rpm-numbers">
@@ -98,24 +114,14 @@ function TachometerDisplay({ rpm }) {
           );
         })}
       </g>
-      {/* The MOVING RPM BAR */}
-      <path
-        d="M 18 300 A 212 212 0 0 1 442 300"
-        fill="none"
-        opacity={1}
-        stroke="red"
-        strokeWidth="12"
-        strokeDasharray={circumference}
-        strokeDashoffset={dashOffset}
-        style={{ transition: "stroke-dashoffset 0.1s ease-out" }}
-      />
+      
 
       <g transform={`rotate(${-needleAngleDegrees}, ${centerX}, ${centerY})`}>
         <path
           d={`M ${centerX + 160} ${centerY - 2} 
               L ${centerX + 210} ${centerY} 
               L ${centerX + 160} ${centerY + 2} Z`}
-          fill="white"
+          fill="red"
           className="needle"
         />
       </g>

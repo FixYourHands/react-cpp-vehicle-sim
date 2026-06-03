@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/d-din');
+
 .outer-ring-white {
     fill: none;
     stroke: #EBF5F4;
@@ -23,9 +25,18 @@
 }
 
 .outer-ring-dark-red {
-    fill: none;
+    fill: #27181D;
     stroke: #27181D;
     stroke-width: 45;
+}
+
+.moving-rpm-arc {
+    fill: none;
+    opacity: 1;
+    stroke: #cc0707;
+    stroke-width: 12;
+    filter: url(#glow);
+
 }
 
 .rpm-numbers {
@@ -34,6 +45,6 @@
     dominant-baseline: middle; 
     font-size: 18px;
     font-weight: bold;
-    font-family: 'Orbitron', sans-serif; 
+    font-family: 'D-DIN', sans-serif; 
     pointer-events: none;     
 }
