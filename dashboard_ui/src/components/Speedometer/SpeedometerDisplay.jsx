@@ -5,8 +5,8 @@ function SpeedometerDisplay({ x, y, speed }) {
   return (
     <g classname=".digital-speedometer">
       <text
-        x={x+30}
-        y={y - 120}
+        x={x}
+        y={y}
         textAnchor="middle"
         fontSize="48"
         fill="white"
@@ -14,9 +14,7 @@ function SpeedometerDisplay({ x, y, speed }) {
       >
         {speed}
       </text>
-      <text x={x+80} y={y - 120} textAnchor="middle" fontSize="24" fill="white" className="speed-unit">
-        mph
-      </text>
+      
     </g>
   );
 }

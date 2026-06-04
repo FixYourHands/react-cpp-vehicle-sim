@@ -1,5 +1,6 @@
 import "./Tachometer.css";
 import SpeedometerDisplay from '../Speedometer/SpeedometerDisplay.jsx';
+import DigitalClock from '../DigitalClock/DigitalClock.jsx';
 
 function TachometerDisplay({ rpm }) {
   const radius = 214;
@@ -9,7 +10,7 @@ function TachometerDisplay({ rpm }) {
   const centerX = 230;
   const centerY = 295;
 
-  const speedValue = 95; // Placeholder for speed value
+  const speedValue = 0; // Placeholder for speed value
 
   return (
     <svg width="550" height="450" viewBox="0 0 500 400">
@@ -58,7 +59,15 @@ function TachometerDisplay({ rpm }) {
       />
 
       {/*Integrated Speedometer */}
-      <SpeedometerDisplay x={centerX} y={centerY} speed={speedValue} />
+      <g className="digital-speedometer">
+      <SpeedometerDisplay x={centerX+10} y={centerY-120} speed={speedValue} />
+      <text x={centerX+75} y={centerY - 107} className="speed-unit">
+        mph
+      </text>
+      </g>
+
+      {/*Digital Clock */}
+      <DigitalClock x={centerX+110} y={centerY - 5} />
 
       {/*NUMBERS CODE */}
       <g className="rpm-numbers">

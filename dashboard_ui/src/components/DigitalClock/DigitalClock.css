@@ -1,0 +1,9 @@
+@import url('https://fonts.cdnfonts.com/css/d-din');
+
+.digital-clock {
+    font-family: 'Orbitron', sans-serif;
+    fill: #c9c1c1;
+    font-size: 24px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
