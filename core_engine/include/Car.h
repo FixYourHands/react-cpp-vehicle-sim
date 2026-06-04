@@ -41,5 +41,7 @@ public:
     void toggleEngineStarter();
     void shiftToGear(int gear);
     void setClutchEngagement(float engagement);
+    void refuel(float amount);
+    void consumeFuel(float amount);
     CarTelemetryData getTelemetryData() const;
 };

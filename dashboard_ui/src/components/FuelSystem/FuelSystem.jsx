@@ -5,9 +5,11 @@ import { useFuelSystem } from "../../hooks/useFuelSystem.js";
 function FuelSystem({Module}) {
     const capacity = 1000;
     const fuelGaugeSize = 250;
-    const {level, fuelPercentage, isLowFuel, updateFuel} = useFuelSystem(Module,capacity);
+    //const {level, fuelPercentage, isLowFuel, updateFuel} = useFuelSystem(Module,capacity);
+    const {telemetryData, updateFuel} = useFuelSystem(Module,capacity);
+    const {currentFuelLevel: level, fuelRemainingPercentage: fuelPercentage, isFuelLow: isLowFuel} = telemetryData;
 
-    console.log(fuelPercentage)
+    console.log(level)
     return (
       <div className="dashboard-container">
         <FuelGaugeDisplay size={fuelGaugeSize} fuelLevel={level} capacity={capacity} isLow={isLowFuel}/>

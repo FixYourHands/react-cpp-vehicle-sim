@@ -1,40 +1,56 @@
 import React, {useState, useRef, useEffect} from 'react';
 
 export function useFuelSystem(Module, capacity) {
-    const [level, setFuel] = useState(75);
-    const [fuelPercentage, setFuelPercentage] = useState(0)
-    const [isLowFuel, setIsFuelLow] = useState(false)
-    const fuelTankRef = useRef(null)
-    
+    const [level, setFuel] = useState(0);
+    const [fuelPercentage, setFuelPercentage] = useState(0);
+    const [isLowFuel, setIsFuelLow] = useState(false);
+
+    const [telemetryData, setTelemetryData] = useState({
+        currentFuelLevel: 0,
+        fuelRemainingPercentage: 0,
+        isFuelLow: false
+    });
+    const vehicleRef = useRef(null);
+
 
     useEffect(() => {
         if (Module){
-            fuelTankRef.current = new Module.FuelTank(capacity);
+            vehicleRef.current = new Module.Car();
             syncState();
         }
     },[Module,capacity]);
 
     const syncState = () =>{
-        setFuel(fuelTankRef.current.getCurrentLevel());
-        setFuelPercentage(fuelTankRef.current.getCurrentPercentage());
-        setIsFuelLow(fuelTankRef.current.isLow());
+        const telemetryData = vehicleRef.current.getTelemetryData();     
+        setTelemetryData({
+            currentFuelLevel: telemetryData.currentFuelLevel,
+            fuelRemainingPercentage: telemetryData.fuelRemainingPercentage,
+            isFuelLow: telemetryData.isFuelLow
+        });
     }
 
     const updateFuel= (newValue) => {
-        if (!fuelTankRef.current)
+        if (!vehicleRef.current)
             return;
-      const currentLevel = fuelTankRef.current.getCurrentLevel();
-      const diff = newValue - level;
+        const currentLevel = telemetryData.currentFuelLevel;
+        const diff = newValue - currentLevel;
 
-      if (diff > 0){
-        fuelTankRef.current.refuel(diff);
-      }
-      else if (diff < 0){
-        fuelTankRef.current.consume(Math.abs(diff));
-      }
+        if (diff > 0){
+            vehicleRef.current.refuel(diff);
+        }
+        else if (diff < 0){
+            vehicleRef.current.consumeFuel(Math.abs(diff));
+        }
 
-      syncState();
+        syncState();
     }
 
-    return {level, fuelPercentage, isLowFuel, updateFuel}
+    return {
+        // level: telemetryData.currentFuelLevel,
+        // fuelPercentage: telemetryData.fuelRemainingPercentage,
+        // isLowFuel: telemetryData.isFuelLow,
+        telemetryData,
+        updateFuel
+    };
+
 }

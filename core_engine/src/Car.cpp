@@ -93,6 +93,14 @@ void Car::toggleEngineStarter(){
     }
 }
 
+void Car::refuel(float amount){
+    m_fuelTank.refuel(amount);
+}
+
+void Car::consumeFuel(float amount){
+    m_fuelTank.consume(amount);
+}
+
 CarTelemetryData Car::getTelemetryData() const {
     CarTelemetryData data;
     data.speed = m_vehicleSpeed;
@@ -110,12 +118,27 @@ CarTelemetryData Car::getTelemetryData() const {
 
 #ifdef __EMSCRIPTEN__
 EMSCRIPTEN_BINDINGS(car_module) {
+    emscripten::value_object<CarTelemetryData>("CarTelemetryData")
+        .field("speed", &CarTelemetryData::speed)
+        .field("wheelAngularVelocity", &CarTelemetryData::wheelAngularVelocity)
+        .field("wheelForwardVelocity", &CarTelemetryData::wheelForwardVelocity)
+        .field("engineRPM", &CarTelemetryData::engineRPM)
+        .field("tachometerRPM", &CarTelemetryData::tachometerRPM)
+        .field("currentFuelLevel", &CarTelemetryData::currentFuelLevel)
+        .field("fuelRemainingPercentage", &CarTelemetryData::fuelRemainingPercentage)
+        .field("currentGear", &CarTelemetryData::currentGear)
+        .field("isEngineOn", &CarTelemetryData::isEngineOn)
+        .field("isFuelLow", &CarTelemetryData::isFuelLow);
+
     emscripten::class_<Car>("Car")
         .constructor<float>()
+        .constructor<>()
         .function("update", &Car::update)
         .function("getTelemetryData", &Car::getTelemetryData)
         .function("toggleEngineStarter", &Car::toggleEngineStarter)
         .function("shiftToGear", &Car::shiftToGear)
-        .function("setClutchEngagement", &Car::setClutchEngagement);
+        .function("setClutchEngagement", &Car::setClutchEngagement)
+        .function("refuel", &Car::refuel)
+        .function("consumeFuel", &Car::consumeFuel);
 }
 #endif
