@@ -1,6 +1,7 @@
 import "./Tachometer.css";
 import SpeedometerDisplay from '../Speedometer/SpeedometerDisplay.jsx';
 import DigitalClock from '../DigitalClock/DigitalClock.jsx';
+import WeatherDisplay from '../Weather/WeatherDisplay.jsx';
 
 function TachometerDisplay({ rpm }) {
   const radius = 214;
@@ -60,7 +61,7 @@ function TachometerDisplay({ rpm }) {
 
       {/*Integrated Speedometer */}
       <g className="digital-speedometer">
-      <SpeedometerDisplay x={centerX+10} y={centerY-120} speed={speedValue} />
+      <SpeedometerDisplay x={centerX} y={centerY-120} speed={speedValue} />
       <text x={centerX+75} y={centerY - 107} className="speed-unit">
         mph
       </text>
@@ -68,6 +69,9 @@ function TachometerDisplay({ rpm }) {
 
       {/*Digital Clock */}
       <DigitalClock x={centerX+110} y={centerY - 5} />
+
+      {/*Weather Display */}
+      <WeatherDisplay x={centerX-80} y={centerY -5} city="Phoenix" />
 
       {/*NUMBERS CODE */}
       <g className="rpm-numbers">
