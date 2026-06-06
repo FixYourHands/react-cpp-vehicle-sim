@@ -5,7 +5,9 @@ function WeatherDisplay({x, y, city="Phoenix"}) {
     const [temperature, setTemperature] = useState(null);
     const [error, setError] = useState(false);
 
-    const API_KEY = "e87d0f763efc92cef50d6aae0a540cd7";
+    const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+
+
 
     useEffect(() => {
         const fetchWeather = async () => {

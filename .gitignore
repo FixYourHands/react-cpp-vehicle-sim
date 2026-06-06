@@ -38,3 +38,6 @@ dashboard_ui/src/wasm/CivicEngine.wasm
 
 #test files
 **/Testing/
+
+#env files
+.env
