@@ -3,7 +3,7 @@ import "./Speedometer.css";
 function SpeedometerDisplay({ x, y, speed }) {
 
   return (
-    <g classname=".digital-speedometer">
+    <g className=".digital-speedometer">
       <text
         x={x}
         y={y}

@@ -8,7 +8,7 @@ function App({Module}) {
     return (
       <div className="dashboard-container">
         <FuelSystem Module={Module} /> 
-        <TachometerDisplay />
+        <TachometerDisplay Module={Module} />
       </div>
     );
 }

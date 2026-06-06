@@ -2,8 +2,9 @@ import "./Tachometer.css";
 import SpeedometerDisplay from '../Speedometer/SpeedometerDisplay.jsx';
 import DigitalClock from '../DigitalClock/DigitalClock.jsx';
 import WeatherDisplay from '../Weather/WeatherDisplay.jsx';
+import MileRange from '../Range/MileRange.jsx';
 
-function TachometerDisplay({ rpm }) {
+function TachometerDisplay({ Module }) {
   const radius = 214;
   const circumference = Math.PI * radius;
   const dashOffset = circumference - ((3000 +50)/ 8000) * circumference ;
@@ -11,7 +12,7 @@ function TachometerDisplay({ rpm }) {
   const centerX = 230;
   const centerY = 295;
 
-  const speedValue = 0; // Placeholder for speed value
+  const speedValue = 35; // Placeholder for speed value
 
   return (
     <svg width="550" height="450" viewBox="0 0 500 400">
@@ -72,6 +73,9 @@ function TachometerDisplay({ rpm }) {
 
       {/*Weather Display */}
       <WeatherDisplay x={centerX-80} y={centerY -5} city="Phoenix" />
+
+      {/*Mile Range Display */}
+      <MileRange Module={Module} x={centerX} y={centerY - 80} />
 
       {/*NUMBERS CODE */}
       <g className="rpm-numbers">
