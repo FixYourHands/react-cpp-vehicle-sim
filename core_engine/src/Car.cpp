@@ -110,6 +110,8 @@ CarTelemetryData Car::getTelemetryData() const {
     data.tachometerRPM = m_tachometer.getDisplayedRPM();
     data.currentFuelLevel = m_fuelTank.getCurrentLevel();
     data.fuelRemainingPercentage = m_fuelTank.getCurrentPercentage();
+    data.rangeInMiles = (m_fuelTank.getCurrentLevel() * FuelConstants::ML_TO_GALLON) * FuelConstants::AVG_MPG;
+    data.averageMilesPerGallon = FuelConstants::AVG_MPG;
     data.currentGear = m_transmission.getCurrentGear();
     data.isEngineOn = m_engine.isRunning();
     data.isFuelLow = m_fuelTank.isLow();
@@ -126,6 +128,8 @@ EMSCRIPTEN_BINDINGS(car_module) {
         .field("tachometerRPM", &CarTelemetryData::tachometerRPM)
         .field("currentFuelLevel", &CarTelemetryData::currentFuelLevel)
         .field("fuelRemainingPercentage", &CarTelemetryData::fuelRemainingPercentage)
+        .field("rangeInMiles", &CarTelemetryData::rangeInMiles)
+        .field("averageMilesPerGallon", &CarTelemetryData::averageMilesPerGallon)
         .field("currentGear", &CarTelemetryData::currentGear)
         .field("isEngineOn", &CarTelemetryData::isEngineOn)
         .field("isFuelLow", &CarTelemetryData::isFuelLow);

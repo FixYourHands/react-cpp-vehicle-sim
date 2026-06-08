@@ -24,12 +24,16 @@ namespace TachometerConstants {
 }
 
 namespace FuelConstants {
-    inline constexpr float MAX_FUEL_CAPACITY {1000.0f}; // in arbitrary fuel units
+    inline constexpr float MAX_FUEL_CAPACITY {41639.5f}; // in mililiters
     inline constexpr float FUEL_CONSUMPTION_RATE {10.0f}; // fuel units consumed per second at full throttle
     inline constexpr float LOW_FUEL_PERCENTAGE {10.0f}; // 10% of capacity
     inline constexpr float BASE_FUEL_CONSUMPTION_RATE {0.00025f};
     inline constexpr float FUEL_CONSUMPTION_RATE_INCREASE_PER_RPM {0.00003f}; // Additional fuel consumption per RPM
     inline constexpr float THROTTLE_FUEL_FACTOR {0.0135f}; // Additional fuel consumption factor based on throttle input
+    inline constexpr float AVG_MPG {30.0f}; // Average miles per gallon for a compact car
+    inline constexpr float FUEL_TANK_IN_GALLONS {11.0f}; // Fuel tank capacity in gallons
+    inline constexpr float GALLON_TO_ML {3785.41f}; // 1 gallon = 3785.41 milliliters
+    inline constexpr float ML_TO_GALLON {1.0f / GALLON_TO_ML}; // 1 milliliter = 0.000264172 gallons
 } 
 
 namespace EngineConstants {

@@ -2,12 +2,10 @@ import FuelGaugeDisplay from "./FuelGaugeDisplay";
 import { useFuelSystem } from "../../hooks/useFuelSystem.js";
 
 
-function FuelSystem({Module}) {
-    const capacity = 1000;
+function FuelSystem({fuelTelemetryData, updateFuel}) {
+    const capacity = 41639.5;
     const fuelGaugeSize = 250;
-    //const {level, fuelPercentage, isLowFuel, updateFuel} = useFuelSystem(Module,capacity);
-    const {telemetryData, updateFuel} = useFuelSystem(Module,capacity);
-    const {currentFuelLevel: level, fuelRemainingPercentage: fuelPercentage, isFuelLow: isLowFuel} = telemetryData;
+    const {currentFuelLevel: level, fuelRemainingPercentage: fuelPercentage, isFuelLow: isLowFuel} = fuelTelemetryData;
 
     console.log(level)
     return (

@@ -3,16 +3,21 @@ import SpeedometerDisplay from '../Speedometer/SpeedometerDisplay.jsx';
 import DigitalClock from '../DigitalClock/DigitalClock.jsx';
 import WeatherDisplay from '../Weather/WeatherDisplay.jsx';
 import MileRange from '../Range/MileRange.jsx';
+import { useFuelSystem } from '../../hooks/useFuelSystem';
+import { useEffect } from 'react';
 
-function TachometerDisplay({ Module }) {
+function TachometerDisplay({ fuelTelemetryData }) {
   const radius = 214;
   const circumference = Math.PI * radius;
-  const dashOffset = circumference - ((3000 +50)/ 8000) * circumference ;
-  const needleAngleDegrees = 180 - (3000) * (180 / 8000);
+  const rpms = 3000; // Placeholder for RPM value, replace with actual telemetry data
+  const dashOffset = circumference - ((rpms +50)/ 8000) * circumference ;
+  const needleAngleDegrees = 180 - (rpms) * (180 / 8000);
   const centerX = 230;
   const centerY = 295;
 
-  const speedValue = 35; // Placeholder for speed value
+  const speedValue = 39; // Placeholder for speed value
+ 
+
 
   return (
     <svg width="550" height="450" viewBox="0 0 500 400">
@@ -75,7 +80,18 @@ function TachometerDisplay({ Module }) {
       <WeatherDisplay x={centerX-80} y={centerY -5} city="Phoenix" />
 
       {/*Mile Range Display */}
-      <MileRange Module={Module} x={centerX} y={centerY - 80} />
+      <MileRange milesRemaining={fuelTelemetryData.milesRemaining} averageMilesPerGallon={fuelTelemetryData.averageMilesPerGallon} x={centerX} y={centerY - 80} />
+
+      {/* NEEDLE - rendered before numbers so numbers appear on top */}
+      <g transform={`rotate(${-needleAngleDegrees}, ${centerX}, ${centerY})`}>
+        <path
+          d={`M ${centerX + 160} ${centerY - 2} 
+              L ${centerX + 210} ${centerY} 
+              L ${centerX + 160} ${centerY + 2} Z`}
+          fill="red"
+          className="needle"
+        />
+      </g>
 
       {/*NUMBERS CODE */}
       <g className="rpm-numbers">
@@ -130,17 +146,6 @@ function TachometerDisplay({ Module }) {
             </g>
           );
         })}
-      </g>
-      
-
-      <g transform={`rotate(${-needleAngleDegrees}, ${centerX}, ${centerY})`}>
-        <path
-          d={`M ${centerX + 160} ${centerY - 2} 
-              L ${centerX + 210} ${centerY} 
-              L ${centerX + 160} ${centerY + 2} Z`}
-          fill="red"
-          className="needle"
-        />
       </g>
     </svg>
   );

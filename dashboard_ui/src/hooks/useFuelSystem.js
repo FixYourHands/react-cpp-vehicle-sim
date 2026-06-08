@@ -1,13 +1,11 @@
 import React, {useState, useRef, useEffect} from 'react';
 
-export function useFuelSystem(Module, capacity) {
-    const [level, setFuel] = useState(0);
-    const [fuelPercentage, setFuelPercentage] = useState(0);
-    const [isLowFuel, setIsFuelLow] = useState(false);
-
-    const [telemetryData, setTelemetryData] = useState({
+export function useFuelSystem(Module) {
+    const [fuelTelemetryData, setTelemetryData] = useState({
         currentFuelLevel: 0,
         fuelRemainingPercentage: 0,
+        averageMilesPerGallon: 0,
+        milesRemaining: 0,
         isFuelLow: false
     });
     const vehicleRef = useRef(null);
@@ -18,21 +16,23 @@ export function useFuelSystem(Module, capacity) {
             vehicleRef.current = new Module.Car();
             syncState();
         }
-    },[Module,capacity]);
+    },[Module]);
 
     const syncState = () =>{
         const telemetryData = vehicleRef.current.getTelemetryData();     
         setTelemetryData({
             currentFuelLevel: telemetryData.currentFuelLevel,
             fuelRemainingPercentage: telemetryData.fuelRemainingPercentage,
-            isFuelLow: telemetryData.isFuelLow
+            isFuelLow: telemetryData.isFuelLow,
+            averageMilesPerGallon: telemetryData.averageMilesPerGallon,
+            milesRemaining: telemetryData.rangeInMiles
         });
     }
 
     const updateFuel= (newValue) => {
         if (!vehicleRef.current)
             return;
-        const currentLevel = telemetryData.currentFuelLevel;
+        const currentLevel = fuelTelemetryData.currentFuelLevel;
         const diff = newValue - currentLevel;
 
         if (diff > 0){
@@ -46,10 +46,7 @@ export function useFuelSystem(Module, capacity) {
     }
 
     return {
-        // level: telemetryData.currentFuelLevel,
-        // fuelPercentage: telemetryData.fuelRemainingPercentage,
-        // isLowFuel: telemetryData.isFuelLow,
-        telemetryData,
+        fuelTelemetryData,
         updateFuel
     };
 

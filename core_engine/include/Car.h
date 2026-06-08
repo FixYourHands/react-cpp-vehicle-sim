@@ -16,6 +16,8 @@ struct CarTelemetryData {
     float tachometerRPM;
     float currentFuelLevel;
     float fuelRemainingPercentage;
+    float rangeInMiles;
+    float averageMilesPerGallon;
     int currentGear;
     bool isEngineOn;
     bool isFuelLow;
